@@ -9,15 +9,28 @@
 #import "NSMutableDictionary+ParamBuilder.h"
 #import <openssl/x509.h>
 #import <openssl/pem.h>
+#import <objc/runtime.h>
+
+static char withoutTokenKey;
 
 @implementation NSMutableDictionary (ParamBuilder)
 
--(NSDictionary*)buildPostParams:(BOOL)addToken {
+@dynamic withoutToken;
+
+-(void)setWithoutToken:(BOOL)withoutToken {
+    objc_setAssociatedObject(self, &withoutTokenKey, @(withoutToken), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(BOOL)withoutToken{
+    return (BOOL)objc_getAssociatedObject(self, &withoutTokenKey);
+}
+
+-(NSDictionary*)buildPostParams {
     [self setValue:[NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]] forKeyPath:@"_time_"];
     [self removeObjectForKey:@"_signature_"];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if (addToken) {
+    if (!self.withoutToken) {
         [self setValue:[userDefaults stringForKey:@"token"] forKey:@"_token_"];
     }
     // signature

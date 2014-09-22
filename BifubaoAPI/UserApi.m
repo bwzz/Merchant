@@ -15,6 +15,7 @@
     [params setValue:@"1" forKey:@"is_need_rsa"];
     [params setValue:password forKey:@"password"];
     [params setValue:[NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]] forKeyPath:@"_time_"];
+    [params setWithoutToken:YES];
     Handler* wrapHandler = [[Handler alloc] init];
     wrapHandler.succedHandler = ^(Result* result){
         NSString *pk =result.result[@"session"][@"rsa_private_key"];

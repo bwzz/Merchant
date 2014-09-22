@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableDictionary (ParamBuilder)
--(NSDictionary*)buildPostParams:(BOOL)addToken;
+@property BOOL withoutToken;
+-(NSDictionary*)buildPostParams;
 @end

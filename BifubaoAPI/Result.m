@@ -12,4 +12,7 @@
 -(BOOL)isSucceed {
     return [self.code isEqualToValue:[NSNumber numberWithInt:0]];
 }
+-(BOOL)isEqualCode:(int) code {
+    return [self.code isEqualToValue:[NSNumber numberWithInt:code]];
+}
 @end

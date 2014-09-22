@@ -14,4 +14,5 @@
 @property (nonatomic, strong) id result;
 
 -(BOOL)isSucceed;
+-(BOOL)isEqualCode:(int) code;
 @end
