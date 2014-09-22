@@ -39,6 +39,8 @@
 		534745BD19CC34C700FAE6D9 /* Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745BC19CC34C700FAE6D9 /* Handler.m */; };
 		534745C019CC360B00FAE6D9 /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745BF19CC360B00FAE6D9 /* Result.m */; };
 		534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C219CFE28D00FAE6D9 /* ProductApi.m */; };
+		534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C619CFE84600FAE6D9 /* ProductTableViewController.m */; };
+		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +183,10 @@
 		534745BF19CC360B00FAE6D9 /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
 		534745C119CFE28D00FAE6D9 /* ProductApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductApi.h; sourceTree = "<group>"; };
 		534745C219CFE28D00FAE6D9 /* ProductApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductApi.m; sourceTree = "<group>"; };
+		534745C519CFE84600FAE6D9 /* ProductTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTableViewController.h; sourceTree = "<group>"; };
+		534745C619CFE84600FAE6D9 /* ProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewController.m; sourceTree = "<group>"; };
+		534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
+		534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +218,7 @@
 		534744A919CA87B900FAE6D9 = {
 			isa = PBXGroup;
 			children = (
+				534745C419CFE7E500FAE6D9 /* Controller */,
 				5347456419CAD73D00FAE6D9 /* BifubaoAPI */,
 				534744EA19CA89B200FAE6D9 /* Kit */,
 				534744BB19CA87B900FAE6D9 /* Merchant */,
@@ -456,6 +463,17 @@
 			path = BifubaoAPI;
 			sourceTree = "<group>";
 		};
+		534745C419CFE7E500FAE6D9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				534745C519CFE84600FAE6D9 /* ProductTableViewController.h */,
+				534745C619CFE84600FAE6D9 /* ProductTableViewController.m */,
+				534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */,
+				534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -568,8 +586,10 @@
 				5347450819CA89B300FAE6D9 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5347450919CA89B300FAE6D9 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				5347450319CA89B300FAE6D9 /* NSAlert+MKNetworkKitAdditions.m in Sources */,
+				534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */,
 				534745BD19CC34C700FAE6D9 /* Handler.m in Sources */,
 				5347450719CA89B300FAE6D9 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */,
 				5347450519CA89B300FAE6D9 /* NSDate+RFC1123.m in Sources */,
 				534745BA19CC097D00FAE6D9 /* NSMutableDictionary+ParamBuilder.m in Sources */,
 			);
