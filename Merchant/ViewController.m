@@ -14,6 +14,7 @@
 
 #import "NSMutableDictionary+ParamBuilder.h"
 #import "UserApi.h"
+#import "ProductApi.h"
 
 @interface ViewController ()
 
@@ -26,7 +27,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    UserApi* api = [[UserApi alloc] initWithHostName:@"testapi.bifubao.com"];
+    UserApi* api = [[UserApi alloc] initWithDefaultHostName];
     
     Handler* uihandler = [[Handler alloc] init];
     uihandler.succedHandler = ^(Result * result){
@@ -36,13 +37,22 @@
     Handler* handler = [[Handler alloc] init];
     
     handler.succedHandler = ^(Result* result) {
-        L(result.result);
-        [api userInfo:uihandler];
-        
+//        L(result.result);
+//        [api userInfo:uihandler];
+        [self loadProducts];
     };
     [api loginWithName:@"wwwroi@163.com" password:@"5bian5jii" handler:handler];
 }
 
+-(void)loadProducts{
+    Handler* handler = [[Handler alloc] init];
+    handler.succedHandler = ^(Result * r) {
+        L(r.result
+          );
+    };
+    ProductApi* api = [[ProductApi alloc] initWithDefaultHostName];
+    [api listWithPageNo:1 andPageSize:100 handler:handler];
+}
 
 - (void)didReceiveMemoryWarning
 {

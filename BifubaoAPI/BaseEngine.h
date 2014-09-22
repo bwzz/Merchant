@@ -11,7 +11,9 @@
 #import "Handler.h"
 
 #define createPath(path) [NSString stringWithFormat:@"v00002/%@", path]
+#define HOST_NAME @"testapi.bifubao.com"
 
 @interface BaseEngine : MKNetworkEngine
+-(id)initWithDefaultHostName;
 -(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param handler:(Handler*)handler;
 @end

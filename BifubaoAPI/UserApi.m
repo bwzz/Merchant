@@ -27,7 +27,7 @@
             [handler handleResult:result];
         }
     };
-    return [self createOperation:createPath(@"user/login") params:params handler:wrapHandler];
+    return [self createOperation:createPath(@"user/login/") params:params handler:wrapHandler];
 }
 
 -(MKNetworkOperation*)userInfo:(Handler*)handler {

@@ -12,6 +12,9 @@
 #import <openssl/pem.h>
 
 @implementation BaseEngine
+-(id)initWithDefaultHostName {
+    return [self initWithHostName:HOST_NAME];
+}
 -(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param handler:(Handler*)handler {
     [param buildPostParams:YES];
     MKNetworkOperation *op = [self operationWithPath:path

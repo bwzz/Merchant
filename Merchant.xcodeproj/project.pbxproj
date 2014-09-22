@@ -38,6 +38,7 @@
 		534745BA19CC097D00FAE6D9 /* NSMutableDictionary+ParamBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745B919CC097D00FAE6D9 /* NSMutableDictionary+ParamBuilder.m */; };
 		534745BD19CC34C700FAE6D9 /* Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745BC19CC34C700FAE6D9 /* Handler.m */; };
 		534745C019CC360B00FAE6D9 /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745BF19CC360B00FAE6D9 /* Result.m */; };
+		534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C219CFE28D00FAE6D9 /* ProductApi.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,8 @@
 		534745BC19CC34C700FAE6D9 /* Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Handler.m; sourceTree = "<group>"; };
 		534745BE19CC360B00FAE6D9 /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
 		534745BF19CC360B00FAE6D9 /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
+		534745C119CFE28D00FAE6D9 /* ProductApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductApi.h; sourceTree = "<group>"; };
+		534745C219CFE28D00FAE6D9 /* ProductApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +450,8 @@
 				534745BC19CC34C700FAE6D9 /* Handler.m */,
 				534745BE19CC360B00FAE6D9 /* Result.h */,
 				534745BF19CC360B00FAE6D9 /* Result.m */,
+				534745C119CFE28D00FAE6D9 /* ProductApi.h */,
+				534745C219CFE28D00FAE6D9 /* ProductApi.m */,
 			);
 			path = BifubaoAPI;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 				5347450C19CA89B300FAE6D9 /* Reachability.m in Sources */,
 				534744CC19CA87B900FAE6D9 /* ViewController.m in Sources */,
 				5347450A19CA89B300FAE6D9 /* MKNetworkEngine.m in Sources */,
+				534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */,
 				534745B419CBF95500FAE6D9 /* UserApi.m in Sources */,
 				5347450619CA89B300FAE6D9 /* NSDictionary+RequestEncoding.m in Sources */,
 				534745C019CC360B00FAE6D9 /* Result.m in Sources */,
