@@ -12,7 +12,7 @@
 #import "UserApi.h"
 
 @interface ProductTableViewController ()
-
+@property (strong, nonatomic) ProductApi *productApi;
 @end
 
 @implementation ProductTableViewController
@@ -39,11 +39,23 @@
     [[[UserApi alloc] initWithDefaultHostName] loginWithName:@"wwwroi@163.com" password:@"5bian5jii" handler:nil];
      
      */
+
+    self.productApi =[[ProductApi alloc] initWithDefaultHostName];
+
+    // setup pull refresh
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh addTarget:self action:@selector(refreshProducts) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+
+    [self refreshProducts];
+}
+
+- (void)refreshProducts {
     Handler* handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* result) {
         self.products = result.result[@"items"];
         [self.tableView reloadData];
-        L(self.products);
+        [self.refreshControl endRefreshing];
     };
     ProductApi* api = [[ProductApi alloc] initWithDefaultHostName];
     [api listWithPageNo:1 andPageSize:100 handler:handler];
