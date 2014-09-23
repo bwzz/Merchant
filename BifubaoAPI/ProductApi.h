@@ -10,4 +10,5 @@
 
 @interface ProductApi : BaseEngine
 -(MKNetworkOperation*)listWithPageNo:(int)pageNo andPageSize:(int)pageSize handler:(Handler*) handler;
+-(MKNetworkOperation*)productDetail:(NSString*)productId handler:(Handler*) handler;
 @end

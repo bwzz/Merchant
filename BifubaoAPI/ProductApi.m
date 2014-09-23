@@ -14,4 +14,10 @@
     NSMutableDictionary* param = [[NSMutableDictionary alloc] init];
     return [self createOperation:createPath(@"product/list/") params:param handler:handler];
 }
+
+-(MKNetworkOperation*)productDetail:(NSString*)productId handler:(Handler*) handler{
+    NSMutableDictionary* param = [[NSMutableDictionary alloc] init];
+    [param setValue:productId forKey:@"product_id"];
+    return [self createOperation:createPath(@"product/detail/") params:param handler:handler];
+}
 @end

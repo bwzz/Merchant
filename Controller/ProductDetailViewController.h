@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductApi.h"
 
 @interface ProductDetailViewController : UIViewController
 @property (strong, nonatomic) NSDictionary* product;

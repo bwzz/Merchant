@@ -10,9 +10,9 @@
 
 @implementation Result
 -(BOOL)isSucceed {
-    return [self.code isEqualToValue:[NSNumber numberWithInt:0]];
+    return [self.code isEqualToNumber:[NSNumber numberWithInt:0]];
 }
 -(BOOL)isEqualCode:(int) code {
-    return [self.code isEqualToValue:[NSNumber numberWithInt:code]];
+    return [self.code isEqualToNumber:[NSNumber numberWithInt:code]];
 }
 @end

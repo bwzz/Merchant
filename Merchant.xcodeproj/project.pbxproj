@@ -41,6 +41,7 @@
 		534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C219CFE28D00FAE6D9 /* ProductApi.m */; };
 		534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C619CFE84600FAE6D9 /* ProductTableViewController.m */; };
 		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
+		53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6719D12EBE00913F5B /* OrderApi.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,8 @@
 		534745C619CFE84600FAE6D9 /* ProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewController.m; sourceTree = "<group>"; };
 		534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		53B6CE6619D12EBE00913F5B /* OrderApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderApi.h; sourceTree = "<group>"; };
+		53B6CE6719D12EBE00913F5B /* OrderApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -459,6 +462,8 @@
 				534745BF19CC360B00FAE6D9 /* Result.m */,
 				534745C119CFE28D00FAE6D9 /* ProductApi.h */,
 				534745C219CFE28D00FAE6D9 /* ProductApi.m */,
+				53B6CE6619D12EBE00913F5B /* OrderApi.h */,
+				53B6CE6719D12EBE00913F5B /* OrderApi.m */,
 			);
 			path = BifubaoAPI;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				534744C619CA87B900FAE6D9 /* AppDelegate.m in Sources */,
 				5347450419CA89B300FAE6D9 /* NSData+MKBase64.m in Sources */,
 				534744C219CA87B900FAE6D9 /* main.m in Sources */,
+				53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */,
 				5347450B19CA89B300FAE6D9 /* MKNetworkOperation.m in Sources */,
 				5347450819CA89B300FAE6D9 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5347450919CA89B300FAE6D9 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
@@ -814,6 +820,7 @@
 				534744E619CA87B900FAE6D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		534744E719CA87B900FAE6D9 /* Build configuration list for PBXNativeTarget "MerchantTests" */ = {
 			isa = XCConfigurationList;
@@ -822,6 +829,7 @@
 				534744E919CA87B900FAE6D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

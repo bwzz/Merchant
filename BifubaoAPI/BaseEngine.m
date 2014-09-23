@@ -23,12 +23,13 @@
                                                  ssl:YES];
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation)
      {
+         Lf(@"request path : %@",path);
+         L([completedOperation responseString]);
          id jsonObject = [completedOperation responseJSON];
          Result* result = [[Result alloc] init];
          result.code = jsonObject[@"error_no"];
          result.message = jsonObject[@"error_msg"];
          result.result = jsonObject[@"result"];
-         Lf(@"%@\n%@",path,jsonObject);
          if (!param.withoutToken && [result isEqualCode:90000]) {
              // token not found
              [self refreshToken:path params:param handler:handler];
