@@ -9,15 +9,19 @@
 #import "ProductDetailViewController.h"
 #import "ProductApi.h"
 #import "OrderApi.h"
+#import "OrderChangedToViewController.h"
 
 @interface ProductDetailViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *orderQrImageView;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productDetailLabel;
+
 @property (strong, nonatomic) ProductApi *productApi;
 @property (strong, nonatomic) OrderApi *orderApi;
+@property (strong, nonatomic) NSTimer *refreshTimer;
+@property (strong, nonatomic) NSDictionary *currentOrder;
+@property (atomic) BOOL disappeared;
 
-- (IBAction)refreshOrder:(id)sender;
 @end
 
 @implementation ProductDetailViewController
@@ -37,6 +41,24 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.disappeared = YES;
+    L(@"view did appear");
+    // 状态机从这里开始
+    [self checkAndRefreshOrder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.disappeared = NO;
+    L(@"view did viewDidDisappear");
+    if (self.refreshTimer != nil) {
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -46,35 +68,39 @@
 -(void)setProduct:(NSDictionary*) product{
     L(product[@"product_name"]);
     self.navigationItem.title = product[@"product_name"];
-    
-    // fetch product detail
-    Handler * productHandler = [[Handler alloc] init];
-    productHandler.succedHandler = ^(Result* r) {
-        L(r.result);
-        _product = r.result;
-        self.productDetailLabel.text = [r.result description];
-    };
-    self.productApi = [[ProductApi alloc] initWithDefaultHostName];
-    [self.productApi productDetail:product[@"product_id"] handler:productHandler];
-    [self refreshProductOrder:product[@"product_hash_id"]];
+    _product = product;
+}
+
+- (void)checkAndRefreshOrder {
+    if (self.currentOrder == nil) {
+        // fetch order
+        [self refreshProductOrder:self.product[@"product_hash_id"]];
+    } else {
+        // check order status
+        if (self.orderApi == nil) {
+            self.orderApi = [[OrderApi alloc] initWithDefaultHostName];
+        }
+        Handler* handler = [[Handler alloc] init];
+        handler.succedHandler = ^(Result* r) {
+            self.currentOrder = r.result;
+            int status = [[r.result valueForKey:@"handle_status"] intValue];
+            [self handleOrderStatus:status];
+        };
+        [self.orderApi detail:self.currentOrder[@"order_hash_id"] handler:handler];
+    }
 }
 
 -(void)refreshProductOrder:(NSString*) productHashId {
     Handler * handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* r) {
         L(r.result);
-        self.timeLabel.text = r.result[@"creation_time"];
-        // Get the string
+        // check order
+        self.currentOrder = r.result;
+        [self checkAndRefreshOrder];
+        
+        // show qrcode
         NSString *stringToEncode = [NSString stringWithFormat:@"bitcoin:%@?amount=%@&order_hash_id=%@",r.result[@"onchain_receive_btc_address"],r.result[@"amont"],r.result[@"order_hash_id"]];
-        
-        // Generate the image
-        CIImage *qrCode = [self createQRForString:stringToEncode];
-        
-        // Convert to an UIImage
-        UIImage *qrCodeImg = [self createNonInterpolatedUIImageFromCIImage:qrCode withScale:3*[[UIScreen mainScreen] scale]];
-        
-        // And push the image on to the screen
-        self.orderQrImageView.image = qrCodeImg;
+        self.orderQrImageView.image = [self generateQrImage:stringToEncode];
     };
     if (self.orderApi == nil) {
         self.orderApi = [[OrderApi alloc] initWithDefaultHostName];
@@ -82,8 +108,42 @@
     [self.orderApi createInternal:productHashId handler:handler];
 }
 
-- (IBAction)refreshOrder:(id)sender {
-    [self refreshProductOrder:self.product[@"product_hash_id"]];
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+     L(@"prepare segue");
+     if ([[segue identifier] isEqualToString:@"OrderChangedTo"]) {
+         [[segue destinationViewController] setOrder:self.currentOrder];
+     }
+ }
+
+- (void)handleOrderStatus:(int) status {
+    Lf(@"handle status %d", status);
+    if (!self.disappeared) {
+        return;
+    }
+    if (status < 900) {
+        // uncomplete, check again after 5s
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkAndRefreshOrder) userInfo:nil repeats:NO];
+    } else {
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
+        [self performSegueWithIdentifier:@"OrderChangedTo" sender:self];
+        // 在prepareForSegue之后执行，使这个controller达到初始状态
+        self.currentOrder = nil;
+    }
+}
+
+- (UIImage*)generateQrImage:(NSString*) string {
+    // Generate the image
+    CIImage *qrCode = [self createQRForString:string];
+    // Convert to an UIImage
+    UIImage *qrCodeImg = [self createNonInterpolatedUIImageFromCIImage:qrCode withScale:3*[[UIScreen mainScreen] scale]];
+    return qrCodeImg;
 }
 
 // Gennerate ORCode
@@ -120,16 +180,5 @@
     CGImageRelease(cgImage);
     return scaledImage;
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

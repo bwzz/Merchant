@@ -10,4 +10,5 @@
 
 @interface OrderApi : BaseEngine
 -(MKNetworkOperation*)createInternal:(NSString*) productHashId handler:(Handler*) handler;
+-(MKNetworkOperation*)detail:(NSString*) orderHashId handler:(Handler*) handler;
 @end

@@ -42,6 +42,7 @@
 		534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C619CFE84600FAE6D9 /* ProductTableViewController.m */; };
 		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
 		53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6719D12EBE00913F5B /* OrderApi.m */; };
+		53B6CE6B19D187E000913F5B /* OrderChangedToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +191,8 @@
 		534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		53B6CE6619D12EBE00913F5B /* OrderApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderApi.h; sourceTree = "<group>"; };
 		53B6CE6719D12EBE00913F5B /* OrderApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderApi.m; sourceTree = "<group>"; };
+		53B6CE6919D187E000913F5B /* OrderChangedToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderChangedToViewController.h; sourceTree = "<group>"; };
+		53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderChangedToViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -475,6 +478,8 @@
 				534745C619CFE84600FAE6D9 /* ProductTableViewController.m */,
 				534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */,
 				534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */,
+				53B6CE6919D187E000913F5B /* OrderChangedToViewController.h */,
+				53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				5347450419CA89B300FAE6D9 /* NSData+MKBase64.m in Sources */,
 				534744C219CA87B900FAE6D9 /* main.m in Sources */,
 				53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */,
+				53B6CE6B19D187E000913F5B /* OrderChangedToViewController.m in Sources */,
 				5347450B19CA89B300FAE6D9 /* MKNetworkOperation.m in Sources */,
 				5347450819CA89B300FAE6D9 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				5347450919CA89B300FAE6D9 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
