@@ -15,6 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *orderQrImageView;
 @property (weak, nonatomic) IBOutlet UILabel *productDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *btcPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cnyPriceLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *requestOrderProgress;
 
 @property (strong, nonatomic) ProductApi *productApi;
 @property (strong, nonatomic) OrderApi *orderApi;
@@ -82,6 +85,7 @@
         }
         Handler* handler = [[Handler alloc] init];
         handler.succedHandler = ^(Result* r) {
+            [self updateOrderInformation:r.result];
             self.currentOrder = r.result;
             int status = [[r.result valueForKey:@"handle_status"] intValue];
             [self handleOrderStatus:status];
@@ -91,16 +95,14 @@
 }
 
 -(void)refreshProductOrder:(NSString*) productHashId {
+    self.orderQrImageView.alpha = 0.1f;
+    [self.requestOrderProgress startAnimating];
+    [self.requestOrderProgress setHidesWhenStopped:YES];
     Handler * handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* r) {
-        L(r.result);
-        // check order
+        [self updateOrderInformation:r.result];
         self.currentOrder = r.result;
         [self checkAndRefreshOrder];
-        
-        // show qrcode
-        NSString *stringToEncode = [NSString stringWithFormat:@"bitcoin:%@?amount=%@&order_hash_id=%@",r.result[@"onchain_receive_btc_address"],r.result[@"amont"],r.result[@"order_hash_id"]];
-        self.orderQrImageView.image = [self generateQrImage:stringToEncode];
     };
     if (self.orderApi == nil) {
         self.orderApi = [[OrderApi alloc] initWithDefaultHostName];
@@ -108,16 +110,31 @@
     [self.orderApi createInternal:productHashId handler:handler];
 }
 
+-(void)updateOrderInformation:(NSDictionary*) order {
+    if (self.currentOrder == nil || ![self.currentOrder[@"pay_btc"] isEqualToString:order[@"pay_btc"]]) {
+        // show qrcode
+        NSString *stringToEncode = [NSString stringWithFormat:@"bitcoin:%@?amount=%@&order_hash_id=%@",order[@"onchain_receive_btc_address"],order[@"pay_btc"],order[@"order_hash_id"]];
+        self.orderQrImageView.image = [self generateQrImage:stringToEncode];
+    }
+    self.orderQrImageView.alpha = 1.0f;
+    [self.requestOrderProgress stopAnimating];
+    self.btcPriceLabel.text = order[@"pay_btc"];
+    self.cnyPriceLabel.text = order[@"pay_cny"];
+    self.productDetailLabel.text = order[@"product"][@"product_desc"];
+}
+
  #pragma mark - Navigation
- 
+
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     // Get the new view controller using [segue destinationViewController].
+     // Pass the selected object to the new view controller.
      L(@"prepare segue");
      if ([[segue identifier] isEqualToString:@"OrderChangedTo"]) {
          [[segue destinationViewController] setOrder:self.currentOrder];
+         // 在prepareForSegue之后执行，使这个controller达到初始状态
+         self.currentOrder = nil;
      }
  }
 
@@ -133,8 +150,6 @@
         [self.refreshTimer invalidate];
         self.refreshTimer = nil;
         [self performSegueWithIdentifier:@"OrderChangedTo" sender:self];
-        // 在prepareForSegue之后执行，使这个controller达到初始状态
-        self.currentOrder = nil;
     }
 }
 
