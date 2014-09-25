@@ -19,4 +19,6 @@ typedef void(^NetworkErrorHandler) (MKNetworkOperation *errorOp, NSError* error)
 @property (copy) NetworkErrorHandler networkErrorHandler;
 
 -(void)handleResult:(Result*)result;
+
+-(Handler*)initWithHandler:(Handler*) handler;
 @end

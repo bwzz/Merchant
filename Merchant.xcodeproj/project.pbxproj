@@ -41,6 +41,7 @@
 		534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C219CFE28D00FAE6D9 /* ProductApi.m */; };
 		534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C619CFE84600FAE6D9 /* ProductTableViewController.m */; };
 		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
+		5386946519D3C49F00C9914F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946419D3C49F00C9914F /* LoginViewController.m */; };
 		53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6719D12EBE00913F5B /* OrderApi.m */; };
 		53B6CE6B19D187E000913F5B /* OrderChangedToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */; };
 /* End PBXBuildFile section */
@@ -189,6 +190,8 @@
 		534745C619CFE84600FAE6D9 /* ProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewController.m; sourceTree = "<group>"; };
 		534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		5386946319D3C49F00C9914F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5386946419D3C49F00C9914F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		53B6CE6619D12EBE00913F5B /* OrderApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderApi.h; sourceTree = "<group>"; };
 		53B6CE6719D12EBE00913F5B /* OrderApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderApi.m; sourceTree = "<group>"; };
 		53B6CE6919D187E000913F5B /* OrderChangedToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderChangedToViewController.h; sourceTree = "<group>"; };
@@ -480,6 +483,8 @@
 				534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */,
 				53B6CE6919D187E000913F5B /* OrderChangedToViewController.h */,
 				53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */,
+				5386946319D3C49F00C9914F /* LoginViewController.h */,
+				5386946419D3C49F00C9914F /* LoginViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 				534745B419CBF95500FAE6D9 /* UserApi.m in Sources */,
 				5347450619CA89B300FAE6D9 /* NSDictionary+RequestEncoding.m in Sources */,
 				534745C019CC360B00FAE6D9 /* Result.m in Sources */,
+				5386946519D3C49F00C9914F /* LoginViewController.m in Sources */,
 				534744C619CA87B900FAE6D9 /* AppDelegate.m in Sources */,
 				5347450419CA89B300FAE6D9 /* NSData+MKBase64.m in Sources */,
 				534744C219CA87B900FAE6D9 /* main.m in Sources */,

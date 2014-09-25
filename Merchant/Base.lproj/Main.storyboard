@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Product Table View Controller - Root View Controller-->
+        <!--Product Table View Controller - 商品-->
         <scene sceneID="WjP-jH-CI5">
             <objects>
                 <tableViewController id="xee-zu-qlN" customClass="ProductTableViewController" sceneMemberID="viewController">
@@ -30,11 +30,68 @@
                             <outlet property="delegate" destination="xee-zu-qlN" id="1cp-ag-2NE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="d2k-pg-xce"/>
+                    <navigationItem key="navigationItem" title="商品" id="d2k-pg-xce"/>
+                    <connections>
+                        <segue destination="hUU-l8-zYP" kind="modal" identifier="Login" id="Fr9-rg-Be7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2gN-pT-oP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="655" y="207"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="zX2-MM-qSu">
+            <objects>
+                <viewController id="hUU-l8-zYP" customClass="LoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FXN-ZH-QrZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="2ch-Uk-Igp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="M0h-WD-kH0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="wwwroi@163.com" borderStyle="roundedRect" placeholder="用户名" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1d2-QB-djW">
+                                <rect key="frame" x="60" y="132" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="hUU-l8-zYP" id="EZt-Dx-mMp"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5bian5jii" borderStyle="roundedRect" placeholder="密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5Dg-Qw-yvf">
+                                <rect key="frame" x="60" y="184" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="hUU-l8-zYP" id="fhb-UC-q0O"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9C-sE-Ccj">
+                                <rect key="frame" x="60" y="231" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="登录">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doLogin:" destination="hUU-l8-zYP" eventType="touchDown" id="mjR-9d-rmy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="loginButton" destination="J9C-sE-Ccj" id="6Eh-O7-qqv"/>
+                        <outlet property="passwordLabel" destination="5Dg-Qw-yvf" id="PtK-Um-wk8"/>
+                        <outlet property="usernameLabel" destination="1d2-QB-djW" id="J2i-4Q-mry"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8dg-Rw-wZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="505" y="917"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="pNL-Kh-7wR">

@@ -35,19 +35,18 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    /*
-    [[[UserApi alloc] initWithDefaultHostName] loginWithName:@"wwwroi@163.com" password:@"5bian5jii" handler:nil];
-     
-     */
-
-    self.productApi =[[ProductApi alloc] initWithDefaultHostName];
-
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
+        [self launchLogin];
+    } else {
+        self.productApi =[[ProductApi alloc] initWithDefaultHostName];
+        [self refreshProducts];
+    }
+    
     // setup pull refresh
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh addTarget:self action:@selector(refreshProducts) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
-
-    [self refreshProducts];
 }
 
 - (void)refreshProducts {
@@ -151,4 +150,7 @@
     
 }
 
+- (void)launchLogin {
+    [self performSegueWithIdentifier:@"Login" sender:self];
+}
 @end

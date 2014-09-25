@@ -10,5 +10,5 @@
 
 @interface NSMutableDictionary (ParamBuilder)
 @property BOOL withoutToken;
--(NSDictionary*)buildPostParams;
+-(NSDictionary*)buildPostParams:(NSString*)signatureKey;
 @end

@@ -25,7 +25,7 @@ static char withoutTokenKey;
     return (BOOL)objc_getAssociatedObject(self, &withoutTokenKey);
 }
 
--(NSDictionary*)buildPostParams {
+-(NSDictionary*)buildPostParams:(NSString*)signatureKey {
     [self setValue:[NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]] forKeyPath:@"_time_"];
     [self removeObjectForKey:@"_signature_"];
     
@@ -34,9 +34,8 @@ static char withoutTokenKey;
         [self setValue:[userDefaults stringForKey:@"token"] forKey:@"_token_"];
     }
     // signature
-    NSString* key = [userDefaults stringForKey:@"rsa_private_key"];
-    if (key != nil) {
-        NSString *signature = [self signMessage:[self makeSignPlainTextWithParam] withKey:key];
+    if (signatureKey != nil) {
+        NSString *signature = [self signMessage:[self makeSignPlainTextWithParam] withKey:signatureKey];
         [self setValue:signature forKey:@"_signature_"];
     }
     return self;

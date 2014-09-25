@@ -15,8 +15,14 @@
 -(id)initWithDefaultHostName {
     return [self initWithHostName:HOST_NAME];
 }
+
 -(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param handler:(Handler*)handler {
-    [param buildPostParams];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [self createOperation:path params:param signatureKey:[userDefaults valueForKey:@"rsa_private_key"] handler:handler];
+}
+
+-(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param signatureKey:(NSString*) signatureKey handler:(Handler*)handler {
+    [param buildPostParams:signatureKey];
     MKNetworkOperation *op = [self operationWithPath:path
                                               params:param
                                           httpMethod:@"POST"
@@ -51,10 +57,13 @@
     UserApi* api = [[UserApi alloc] initWithDefaultHostName];
     Handler* rhandler = [[Handler alloc] init];
     rhandler.succedHandler = ^(Result* result) {
-        if(result.isSucceed) {
-            [self createOperation:path params:param handler:handler];
-        }
+        [self createOperation:path params:param handler:handler];
     };
-    [api loginWithName:@"wwwroi@163.com" password:@"5bian5jii" handler:rhandler];
+    rhandler.failedHandler = ^(Result* result) {
+        // notify session out of date, logout
+        UIAlertView *at = [[UIAlertView alloc] initWithTitle:nil message:@"session out of date" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [at show];
+    };
+    [api loginByApp:rhandler];
 }
 @end

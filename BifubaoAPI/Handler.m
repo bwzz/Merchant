@@ -20,4 +20,12 @@
         }
     }
 }
+
+
+-(Handler*)initWithHandler:(Handler*) handler {
+    _succedHandler = handler.succedHandler;
+    _failedHandler = handler.failedHandler;
+    _networkErrorHandler = handler.networkErrorHandler;
+    return self;
+}
 @end
