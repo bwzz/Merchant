@@ -37,7 +37,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2gN-pT-oP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="655" y="207"/>
+            <point key="canvasLocation" x="339" y="219"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="zX2-MM-qSu">
@@ -91,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dg-Rw-wZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="505" y="917"/>
+            <point key="canvasLocation" x="985" y="879"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="pNL-Kh-7wR">
@@ -162,11 +162,12 @@
                         <outlet property="productDetailLabel" destination="b5L-GH-qk4" id="zm4-i5-VvP"/>
                         <outlet property="requestOrderProgress" destination="kSr-mr-G8c" id="XqV-Lf-ZCY"/>
                         <segue destination="38D-0r-SZA" kind="push" identifier="OrderChangedTo" id="cXu-dt-Tay"/>
+                        <segue destination="hUU-l8-zYP" kind="modal" identifier="Login" id="whE-xt-cFi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xt1-uv-bbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1038" y="207"/>
+            <point key="canvasLocation" x="994" y="-19"/>
         </scene>
         <!--Order Changed To View Controller-->
         <scene sceneID="sAA-P8-y8c">
@@ -196,7 +197,6 @@
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="38D-0r-SZA" eventType="touchDown" id="SWm-0i-eXa"/>
-                                    <segue destination="ZrO-z0-ud1" kind="push" id="h0Q-GE-nes"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -209,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5t-l8-mfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1321" y="971"/>
+            <point key="canvasLocation" x="1711" y="747"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="HNh-16-VCd">
@@ -235,10 +235,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="BTO-0Y-qzp"/>
+                    <connections>
+                        <segue destination="hUU-l8-zYP" kind="modal" identifier="Login" id="45d-ON-ukw"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsM-c7-g7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1667" y="235"/>
+            <point key="canvasLocation" x="1693" y="-19"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="14v-VV-f0W">
@@ -253,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMy-gR-dfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="226" y="207"/>
+            <point key="canvasLocation" x="-87" y="219"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -262,6 +265,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="P6X-PX-b3I"/>
+        <segue reference="45d-ON-ukw"/>
     </inferredMetricsTieBreakers>
 </document>

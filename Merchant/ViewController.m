@@ -27,7 +27,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    UserApi* api = [[UserApi alloc] initWithDefaultHostName];
+    UserApi* api = [[UserApi alloc] initWithDefaultHostNameAndController:self];
     
     Handler* uihandler = [[Handler alloc] init];
     uihandler.succedHandler = ^(Result * result){
@@ -50,7 +50,7 @@
         L(r.result
           );
     };
-    ProductApi* api = [[ProductApi alloc] initWithDefaultHostName];
+    ProductApi* api = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
     [api listWithPageNo:1 andPageSize:100 handler:handler];
 }
 

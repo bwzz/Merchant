@@ -39,7 +39,7 @@
     if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
         [self launchLogin];
     } else {
-        self.productApi =[[ProductApi alloc] initWithDefaultHostName];
+        self.productApi =[[ProductApi alloc] initWithDefaultHostNameAndController:self];
         [self refreshProducts];
     }
     
@@ -56,7 +56,13 @@
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     };
-    ProductApi* api = [[ProductApi alloc] initWithDefaultHostName];
+    handler.failedHandler = ^(Result* result) {
+        [self.refreshControl endRefreshing];
+    };
+    handler.networkErrorHandler = ^(MKNetworkOperation *errorOp, NSError* error) {
+        [self.refreshControl endRefreshing];
+    };
+    ProductApi* api = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
     [api listWithPageNo:1 andPageSize:100 handler:handler];
 }
 

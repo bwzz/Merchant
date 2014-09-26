@@ -14,7 +14,7 @@
 #define HOST_NAME @"testapi.bifubao.com"
 
 @interface BaseEngine : MKNetworkEngine
--(id)initWithDefaultHostName;
+-(id)initWithDefaultHostNameAndController:(UIViewController*) controller;
 -(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param handler:(Handler*)handler;
 -(MKNetworkOperation*)createOperation:(NSString*) path params:(NSMutableDictionary*) param signatureKey:(NSString*) signatureKey handler:(Handler*)handler;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "ProductDetailViewController.h"
-#import "ProductApi.h"
 #import "OrderApi.h"
 #import "OrderChangedToViewController.h"
 
@@ -19,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *cnyPriceLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *requestOrderProgress;
 
-@property (strong, nonatomic) ProductApi *productApi;
 @property (strong, nonatomic) OrderApi *orderApi;
 @property (strong, nonatomic) NSTimer *refreshTimer;
 @property (strong, nonatomic) NSDictionary *currentOrder;
@@ -48,6 +46,7 @@
     [super viewDidAppear:animated];
     self.disappeared = YES;
     L(@"view did appear");
+    Lf(@"product %@", self.product);
     // 状态机从这里开始
     [self checkAndRefreshOrder];
 }
@@ -60,6 +59,7 @@
         [self.refreshTimer invalidate];
         self.refreshTimer = nil;
     }
+    Lf(@"product %@", self.product);
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +81,7 @@
     } else {
         // check order status
         if (self.orderApi == nil) {
-            self.orderApi = [[OrderApi alloc] initWithDefaultHostName];
+            self.orderApi = [[OrderApi alloc] initWithDefaultHostNameAndController:self];
         }
         Handler* handler = [[Handler alloc] init];
         handler.succedHandler = ^(Result* r) {
@@ -105,7 +105,7 @@
         [self checkAndRefreshOrder];
     };
     if (self.orderApi == nil) {
-        self.orderApi = [[OrderApi alloc] initWithDefaultHostName];
+        self.orderApi = [[OrderApi alloc] initWithDefaultHostNameAndController:self];
     }
     [self.orderApi createInternal:productHashId handler:handler];
 }

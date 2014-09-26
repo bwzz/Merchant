@@ -68,7 +68,7 @@
         return;
     }
     if (self.userapi == nil) {
-        self.userapi = [[UserApi alloc] initWithDefaultHostName];
+        self.userapi = [[UserApi alloc] initWithDefaultHostNameAndController:self];
     }
     Handler* handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* r) {

@@ -11,8 +11,14 @@
 #import <openssl/x509.h>
 #import <openssl/pem.h>
 
+@interface BaseEngine()
+@property (weak,nonatomic) UIViewController* controller;
+@end
+
 @implementation BaseEngine
--(id)initWithDefaultHostName {
+
+-(id)initWithDefaultHostNameAndController:(UIViewController*) controller {
+    _controller = controller;
     return [self initWithHostName:HOST_NAME];
 }
 
@@ -29,7 +35,7 @@
                                                  ssl:YES];
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation)
      {
-         Lf(@"request path : %@",path);
+         Lf(@"request path : %@\n%@", path, param);
          L([completedOperation responseString]);
          id jsonObject = [completedOperation responseJSON];
          Result* result = [[Result alloc] init];
@@ -54,15 +60,17 @@
 
 -(void) refreshToken:(NSString*) path params:(NSMutableDictionary*) param handler:(Handler*)handler {
     L(@"refresh token");
-    UserApi* api = [[UserApi alloc] initWithDefaultHostName];
+    UserApi* api = [[UserApi alloc] initWithDefaultHostNameAndController:self.controller];
     Handler* rhandler = [[Handler alloc] init];
     rhandler.succedHandler = ^(Result* result) {
         [self createOperation:path params:param handler:handler];
     };
     rhandler.failedHandler = ^(Result* result) {
         // notify session out of date, logout
-        UIAlertView *at = [[UIAlertView alloc] initWithTitle:nil message:@"session out of date" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *at = [[UIAlertView alloc] initWithTitle:@"session out of date" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [at show];
+        [handler handleResult:result];
+        [self.controller performSegueWithIdentifier:@"Login" sender:self.controller];
     };
     [api loginByApp:rhandler];
 }
