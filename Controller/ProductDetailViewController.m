@@ -119,8 +119,8 @@
     }
     self.orderQrImageView.alpha = 1.0f;
     [self.requestOrderProgress stopAnimating];
-    self.btcPriceLabel.text = order[@"pay_btc"];
-    self.cnyPriceLabel.text = order[@"pay_cny"];
+    self.btcPriceLabel.text = [NSString stringWithFormat:@"BTC : %@",order[@"pay_btc"]];
+    self.cnyPriceLabel.text = [NSString stringWithFormat:@"CNY : %@",order[@"pay_cny"]];
     self.productDetailLabel.text = order[@"product"][@"product_desc"];
 }
 

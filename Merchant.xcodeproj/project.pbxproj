@@ -43,6 +43,7 @@
 		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
 		5386946519D3C49F00C9914F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946419D3C49F00C9914F /* LoginViewController.m */; };
 		5386946B19D53F5100C9914F /* OrderOfProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946A19D53F5100C9914F /* OrderOfProductTableViewController.m */; };
+		5386947019D55C8600C9914F /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946F19D55C8600C9914F /* OrderTableViewCell.m */; };
 		53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6719D12EBE00913F5B /* OrderApi.m */; };
 		53B6CE6B19D187E000913F5B /* OrderChangedToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B6CE6A19D187E000913F5B /* OrderChangedToViewController.m */; };
 /* End PBXBuildFile section */
@@ -195,6 +196,8 @@
 		5386946419D3C49F00C9914F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5386946919D53F5100C9914F /* OrderOfProductTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderOfProductTableViewController.h; sourceTree = "<group>"; };
 		5386946A19D53F5100C9914F /* OrderOfProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderOfProductTableViewController.m; sourceTree = "<group>"; };
+		5386946E19D55C8600C9914F /* OrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableViewCell.h; sourceTree = "<group>"; };
+		5386946F19D55C8600C9914F /* OrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableViewCell.m; sourceTree = "<group>"; };
 		53B6CE6619D12EBE00913F5B /* OrderApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderApi.h; sourceTree = "<group>"; };
 		53B6CE6719D12EBE00913F5B /* OrderApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderApi.m; sourceTree = "<group>"; };
 		53B6CE6919D187E000913F5B /* OrderChangedToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderChangedToViewController.h; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 		534744A919CA87B900FAE6D9 = {
 			isa = PBXGroup;
 			children = (
+				5386946D19D55C5500C9914F /* Widget */,
 				534745C419CFE7E500FAE6D9 /* Controller */,
 				5347456419CAD73D00FAE6D9 /* BifubaoAPI */,
 				534744EA19CA89B200FAE6D9 /* Kit */,
@@ -494,6 +498,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		5386946D19D55C5500C9914F /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				5386946E19D55C8600C9914F /* OrderTableViewCell.h */,
+				5386946F19D55C8600C9914F /* OrderTableViewCell.m */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -593,6 +606,7 @@
 			files = (
 				534745B119CBF73E00FAE6D9 /* BaseEngine.m in Sources */,
 				5386946B19D53F5100C9914F /* OrderOfProductTableViewController.m in Sources */,
+				5386947019D55C8600C9914F /* OrderTableViewCell.m in Sources */,
 				5347450C19CA89B300FAE6D9 /* Reachability.m in Sources */,
 				534744CC19CA87B900FAE6D9 /* ViewController.m in Sources */,
 				5347450A19CA89B300FAE6D9 /* MKNetworkEngine.m in Sources */,

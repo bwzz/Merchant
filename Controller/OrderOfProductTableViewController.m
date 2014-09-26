@@ -8,6 +8,7 @@
 
 #import "OrderOfProductTableViewController.h"
 #import "ProductApi.h"
+#import "OrderTableViewCell.h"
 
 @interface OrderOfProductTableViewController ()
 @property (nonatomic) ProductApi* productApi;
@@ -17,7 +18,7 @@
 @property (nonatomic) BOOL isLoading;
 @end
 
-static int pageSize = 100;
+static int pageSize = 50;
 
 @implementation OrderOfProductTableViewController
 
@@ -176,12 +177,12 @@ static int pageSize = 100;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TableSampleIdentifier = @"OrderCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
+    OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableSampleIdentifier];
+        cell = [[OrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableSampleIdentifier];
     };
     NSDictionary *order = (self.orders)[indexPath.row];
-    cell.textLabel.text = order[@"display_name"];
+    [cell setOrder:order];
     return cell;
 }
 
