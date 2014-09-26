@@ -149,7 +149,7 @@
                     <navigationItem key="navigationItem" id="jVR-Aj-rBT">
                         <barButtonItem key="rightBarButtonItem" title="成交记录" id="6me-jb-mxg">
                             <connections>
-                                <segue destination="b5S-8Y-ouo" kind="push" id="73P-td-GWr"/>
+                                <segue destination="b5S-8Y-ouo" kind="push" identifier="orderList" id="73P-td-GWr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -211,10 +211,10 @@
             </objects>
             <point key="canvasLocation" x="1711" y="747"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Order Of Product Table View Controller-->
         <scene sceneID="HNh-16-VCd">
             <objects>
-                <tableViewController id="b5S-8Y-ouo" sceneMemberID="viewController">
+                <tableViewController id="b5S-8Y-ouo" customClass="OrderOfProductTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gyM-jV-Bjn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -1,26 +1,25 @@
 //
-//  ProductTableViewController.m
+//  OrderOfProductTableViewController.m
 //  Merchant
 //
-//  Created by wanghb on 14-9-22.
+//  Created by wanghb on 14-9-26.
 //  Copyright (c) 2014年 bifubao. All rights reserved.
 //
 
-#import "ProductTableViewController.h"
+#import "OrderOfProductTableViewController.h"
 #import "ProductApi.h"
-#import "ProductDetailViewController.h"
-#import "UserApi.h"
 
-@interface ProductTableViewController ()
-@property (strong, nonatomic) ProductApi *productApi;
-@property (nonatomic) BOOL hasMoreData;
+@interface OrderOfProductTableViewController ()
+@property (nonatomic) ProductApi* productApi;
+@property (nonatomic) NSMutableArray* orders;
 @property (nonatomic) int pageNum;
+@property (nonatomic) BOOL hasMoreData;
 @property (nonatomic) BOOL isLoading;
 @end
 
 static int pageSize = 100;
 
-@implementation ProductTableViewController
+@implementation OrderOfProductTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,42 +39,47 @@ static int pageSize = 100;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
-        [self launchLogin];
-    } else {
-        self.productApi =[[ProductApi alloc] initWithDefaultHostNameAndController:self];
-        [self refreshProducts];
-    }
     
     // setup pull refresh
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh addTarget:self action:@selector(refreshProducts) forControlEvents:UIControlEventValueChanged];
+    [refresh addTarget:self action:@selector(refreshOrders) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 }
 
-- (void)refreshProducts {
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.orders == nil) {
+        self.productApi = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
+        [self refreshOrders];
+    }
+}
+
+-(void)setProduct:(NSDictionary*) product{
+    L(product[@"product_name"]);
+    self.navigationItem.title = product[@"product_name"];
+    _product = product;
+}
+
+- (void)refreshOrders {
     Handler* handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* result) {
-        self.products = [[NSMutableArray alloc] initWithArray:result.result[@"items"]];
-        [self reloadData:[self.products count] < [result.result[@"total_count"] intValue]];
+        self.orders = [[NSMutableArray alloc] initWithArray:result.result[@"items"]];
+        [self reloadData:[self.orders count] < [result.result[@"total_count"] intValue]];
         [self.refreshControl endRefreshing];
         self.pageNum = 1;
-        self.isLoading = NO;
     };
     handler.failedHandler = ^(Result* result) {
         [self.refreshControl endRefreshing];
-        self.isLoading = NO;
     };
     handler.networkErrorHandler = ^(MKNetworkOperation *errorOp, NSError* error) {
         [self.refreshControl endRefreshing];
-        self.isLoading = NO;
     };
     self.isLoading = YES;
-    [self.productApi listWithPageNo:1 andPageSize:pageSize handler:handler];
+    [self.productApi orderList:self.product[@"product_id"] page:1 pageSize:pageSize handler:handler];
 }
 
 - (void)reloadData:(BOOL)hasMoreData {
+    Lf(@"reload data %lu %hhd", (unsigned long)[self.orders count], hasMoreData);
     self.hasMoreData = hasMoreData;
     [self.tableView reloadData];
     self.tableView.tableFooterView = nil;
@@ -93,20 +97,39 @@ static int pageSize = 100;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     Lf(@"end dragging %f %f %f",scrollView.contentOffset.y, scrollView.contentSize.height, scrollView.frame.size.height);
     if(self.tableView.tableFooterView != nil && scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))) {
-        [self loadMoreData];
+        Lf(@"load more data from %d",[self.orders count]);
+        Handler* handler = [[Handler alloc] init];
+        handler.succedHandler = ^(Result* result) {
+            NSMutableArray* items = result.result[@"items"];
+            [self.orders addObjectsFromArray:items];
+            [self reloadData:[self.orders count] < [result.result[@"total_count"] intValue]];
+            [self.refreshControl endRefreshing];
+            ++ self.pageNum;
+            self.isLoading = NO;
+        };
+        handler.failedHandler = ^(Result* result) {
+            [self.refreshControl endRefreshing];
+            self.isLoading = NO;
+        };
+        handler.networkErrorHandler = ^(MKNetworkOperation *errorOp, NSError* error) {
+            [self.refreshControl endRefreshing];
+            self.isLoading = NO;
+        };
+        self.isLoading = YES;
+        [self.productApi orderList:self.product[@"product_id"] page:self.pageNum pageSize:pageSize handler:handler];
     }
 }
 
 - (void)loadMoreData {
-    if (self.isLoading) {
+    if (!self.hasMoreData || self.isLoading) {
         return;
     }
-    Lf(@"load more data from %d",[self.products count]);
+    Lf(@"load more data from %d",[self.orders count]);
     Handler* handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* result) {
         NSMutableArray* items = result.result[@"items"];
-        [self.products addObjectsFromArray:items];
-        [self reloadData:[self.products count] < [result.result[@"total_count"] intValue]];
+        [self.orders addObjectsFromArray:items];
+        [self reloadData:[self.orders count] < [result.result[@"total_count"] intValue]];
         [self.refreshControl endRefreshing];
         ++ self.pageNum;
         self.isLoading = NO;
@@ -120,12 +143,12 @@ static int pageSize = 100;
         self.isLoading = NO;
     };
     self.isLoading = YES;
-    [self.productApi listWithPageNo:self.pageNum + 1 andPageSize:pageSize handler:handler];
+    [self.productApi orderList:self.product[@"product_id"] page:self.pageNum pageSize:pageSize handler:handler];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
-//    Lf(@"willDisplayCell %d %d", indexPath.row, [self.products count]);
-    if (self.hasMoreData && indexPath.row == [self.products count] - 1) {
+//    Lf(@"willDisplayCell %d %d", indexPath.row, [self.orders count]);
+    if (self.hasMoreData && indexPath.row == [self.orders count] - 1) {
         [self loadMoreData];
     }
 }
@@ -147,63 +170,60 @@ static int pageSize = 100;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.products count];
+    return [self.orders count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *TableSampleIdentifier = @"ProductCell";
+    static NSString *TableSampleIdentifier = @"OrderCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableSampleIdentifier];
     };
-    
-    NSDictionary *product = (self.products)[indexPath.row];
-    
-    cell.textLabel.text = product[@"product_name"];
-    cell.detailTextLabel.text = product[@"seller_hint"];
+    NSDictionary *order = (self.orders)[indexPath.row];
+    cell.textLabel.text = order[@"display_name"];
     return cell;
 }
 
 /*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
 
 /*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
 
 /*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
 
 /*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -211,16 +231,7 @@ static int pageSize = 100;
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"showProductDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDictionary *product = (self.products)[indexPath.row];
-        [[segue destinationViewController] setProduct:product];
-    }
-    
 }
-
-- (void)launchLogin {
-    [self performSegueWithIdentifier:@"Login" sender:self];
-}
+*/
 
 @end

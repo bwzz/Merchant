@@ -9,6 +9,7 @@
 #import "ProductDetailViewController.h"
 #import "OrderApi.h"
 #import "OrderChangedToViewController.h"
+#import "OrderOfProductTableViewController.h"
 
 @interface ProductDetailViewController ()
 
@@ -135,6 +136,8 @@
          [[segue destinationViewController] setOrder:self.currentOrder];
          // 在prepareForSegue之后执行，使这个controller达到初始状态
          self.currentOrder = nil;
+     } else if ([[segue identifier] isEqualToString:@"orderList"]) {
+         [[segue destinationViewController] setProduct:self.product];
      }
  }
 

@@ -9,6 +9,7 @@
 #import "BaseEngine.h"
 
 @interface ProductApi : BaseEngine
--(MKNetworkOperation*)listWithPageNo:(int)pageNo andPageSize:(int)pageSize handler:(Handler*) handler;
+-(MKNetworkOperation*)listWithPageNo:(int)page andPageSize:(int)pageSize handler:(Handler*) handler;
 -(MKNetworkOperation*)productDetail:(NSString*)productId handler:(Handler*) handler;
+-(MKNetworkOperation*)orderList:(NSString*)productId page:(int) page pageSize:(int) pageSize handler:(Handler*) handler;
 @end

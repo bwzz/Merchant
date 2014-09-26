@@ -10,8 +10,10 @@
 
 @implementation ProductApi
 
--(MKNetworkOperation*)listWithPageNo:(int)pageNo andPageSize:(int)pageSize handler:(Handler*) handler{
+-(MKNetworkOperation*)listWithPageNo:(int)page andPageSize:(int)pageSize handler:(Handler*) handler{
     NSMutableDictionary* param = [[NSMutableDictionary alloc] init];
+    [param setValue:@(page).stringValue forKey:@"page_no"];
+    [param setValue:@(pageSize).stringValue forKey:@"page_size"];
     return [self createOperation:createPath(@"product/list/") params:param handler:handler];
 }
 
@@ -19,5 +21,13 @@
     NSMutableDictionary* param = [[NSMutableDictionary alloc] init];
     [param setValue:productId forKey:@"product_id"];
     return [self createOperation:createPath(@"product/detail/") params:param handler:handler];
+}
+
+-(MKNetworkOperation*)orderList:(NSString*)productId page:(int) page pageSize:(int) pageSize handler:(Handler*) handler {
+    NSMutableDictionary* param = [[NSMutableDictionary alloc] init];
+    [param setValue:productId forKey:@"product_id"];
+    [param setValue:@(page).stringValue forKey:@"page_no"];
+    [param setValue:@(pageSize).stringValue forKey:@"page_size"];
+    return [self createOperation:createPath(@"product/orderlist/") params:param handler:handler];
 }
 @end
