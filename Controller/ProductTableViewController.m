@@ -13,7 +13,11 @@
 
 @interface ProductTableViewController ()
 @property (strong, nonatomic) ProductApi *productApi;
+@property (nonatomic) BOOL hasMoreData;
+@property (nonatomic) int pageNum;
 @end
+
+static int pageSize = 100;
 
 @implementation ProductTableViewController
 
@@ -50,10 +54,11 @@
 }
 
 - (void)refreshProducts {
+    self.pageNum = 1;
     Handler* handler = [[Handler alloc] init];
     handler.succedHandler = ^(Result* result) {
-        self.products = result.result[@"items"];
-        [self.tableView reloadData];
+        self.products = [[NSMutableArray alloc] initWithArray:result.result[@"items"]];
+        [self reloadData:[self.products count] < [result.result[@"total_count"] intValue]];
         [self.refreshControl endRefreshing];
     };
     handler.failedHandler = ^(Result* result) {
@@ -62,8 +67,43 @@
     handler.networkErrorHandler = ^(MKNetworkOperation *errorOp, NSError* error) {
         [self.refreshControl endRefreshing];
     };
-    ProductApi* api = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
-    [api listWithPageNo:1 andPageSize:100 handler:handler];
+    [self.productApi listWithPageNo:self.pageNum andPageSize:pageSize handler:handler];
+}
+
+- (void)reloadData:(BOOL)hasMoreData {
+    [self.tableView reloadData];
+    self.tableView.tableFooterView = nil;
+    if (hasMoreData) {
+        UIView *tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 40.0f)];
+        UIActivityIndicatorView *tableFooterActivityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(75.0f, 10.0f, 20.0f, 20.0f)];
+        [tableFooterActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [tableFooterActivityIndicator startAnimating];
+        [tableFooterActivityIndicator setCenter:tableFooterView.center];
+        [tableFooterView addSubview:tableFooterActivityIndicator];
+        self.tableView.tableFooterView = tableFooterView;
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    Lf(@"end dragging %f %f %f",scrollView.contentOffset.y, scrollView.contentSize.height, scrollView.frame.size.height);
+    if(self.tableView.tableFooterView != nil && scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))) {
+        Lf(@"load more data from %d",[self.products count]);
+        Handler* handler = [[Handler alloc] init];
+        handler.succedHandler = ^(Result* result) {
+            NSMutableArray* items = result.result[@"items"];
+            [self.products addObjectsFromArray:items];
+            [self reloadData:[self.products count] < [result.result[@"total_count"] intValue]];
+            [self.refreshControl endRefreshing];
+            ++ self.pageNum;
+        };
+        handler.failedHandler = ^(Result* result) {
+            [self.refreshControl endRefreshing];
+        };
+        handler.networkErrorHandler = ^(MKNetworkOperation *errorOp, NSError* error) {
+            [self.refreshControl endRefreshing];
+        };
+        [self.productApi listWithPageNo:self.pageNum + 1 andPageSize:pageSize handler:handler];
+    }
 }
 
 - (void)didReceiveMemoryWarning
