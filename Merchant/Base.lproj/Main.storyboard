@@ -31,7 +31,13 @@
                             <outlet property="delegate" destination="xee-zu-qlN" id="1cp-ag-2NE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="商品" id="d2k-pg-xce"/>
+                    <navigationItem key="navigationItem" title="商品" id="d2k-pg-xce">
+                        <barButtonItem key="rightBarButtonItem" title="设置" id="1dO-1e-j98">
+                            <connections>
+                                <segue destination="aAU-aZ-6fv" kind="push" id="gxA-jd-8XP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="hUU-l8-zYP" kind="modal" identifier="Login" id="Fr9-rg-Be7"/>
                     </connections>
@@ -289,6 +295,53 @@
             </objects>
             <point key="canvasLocation" x="-87" y="219"/>
         </scene>
+        <!--设置-->
+        <scene sceneID="Lca-Wv-Af4">
+            <objects>
+                <tableViewController id="aAU-aZ-6fv" customClass="SettingsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Gzf-BS-Rzt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="SettingCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingCell" textLabel="WiI-1U-cX3" detailTextLabel="ORX-Gb-A4h" style="IBUITableViewCellStyleValue1" id="oVv-Mv-Adc">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oVv-Mv-Adc" id="nSP-kv-dYR">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WiI-1U-cX3">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ORX-Gb-A4h">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="LogoutCell" selectionStyle="blue" indentationWidth="10" reuseIdentifier="LogoutCell" id="EVn-m5-Myi">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EVn-m5-Myi" id="CVj-hD-oC1">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aAU-aZ-6fv" id="Dsq-Tn-xR4"/>
+                            <outlet property="delegate" destination="aAU-aZ-6fv" id="trt-Tw-r4q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="设置" id="AII-JA-sjY"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zhl-xX-eQC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15" y="953"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -296,6 +349,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="whE-xt-cFi"/>
+        <segue reference="Fr9-rg-Be7"/>
     </inferredMetricsTieBreakers>
 </document>

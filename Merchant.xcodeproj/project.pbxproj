@@ -41,6 +41,7 @@
 		534745C319CFE28D00FAE6D9 /* ProductApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C219CFE28D00FAE6D9 /* ProductApi.m */; };
 		534745C719CFE84600FAE6D9 /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C619CFE84600FAE6D9 /* ProductTableViewController.m */; };
 		534745CA19CFF7C800FAE6D9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */; };
+		534E7C4C19D7CF05005737CF /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534E7C4B19D7CF05005737CF /* SettingsTableViewController.m */; };
 		5386946519D3C49F00C9914F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946419D3C49F00C9914F /* LoginViewController.m */; };
 		5386946B19D53F5100C9914F /* OrderOfProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946A19D53F5100C9914F /* OrderOfProductTableViewController.m */; };
 		5386947019D55C8600C9914F /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386946F19D55C8600C9914F /* OrderTableViewCell.m */; };
@@ -192,6 +193,8 @@
 		534745C619CFE84600FAE6D9 /* ProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewController.m; sourceTree = "<group>"; };
 		534745C819CFF7C800FAE6D9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		534745C919CFF7C800FAE6D9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		534E7C4A19D7CF05005737CF /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		534E7C4B19D7CF05005737CF /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		5386946319D3C49F00C9914F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5386946419D3C49F00C9914F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5386946919D53F5100C9914F /* OrderOfProductTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderOfProductTableViewController.h; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				5386946419D3C49F00C9914F /* LoginViewController.m */,
 				5386946919D53F5100C9914F /* OrderOfProductTableViewController.h */,
 				5386946A19D53F5100C9914F /* OrderOfProductTableViewController.m */,
+				534E7C4A19D7CF05005737CF /* SettingsTableViewController.h */,
+				534E7C4B19D7CF05005737CF /* SettingsTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 				534745C019CC360B00FAE6D9 /* Result.m in Sources */,
 				5386946519D3C49F00C9914F /* LoginViewController.m in Sources */,
 				534744C619CA87B900FAE6D9 /* AppDelegate.m in Sources */,
+				534E7C4C19D7CF05005737CF /* SettingsTableViewController.m in Sources */,
 				5347450419CA89B300FAE6D9 /* NSData+MKBase64.m in Sources */,
 				534744C219CA87B900FAE6D9 /* main.m in Sources */,
 				53B6CE6819D12EBE00913F5B /* OrderApi.m in Sources */,

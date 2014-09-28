@@ -40,11 +40,6 @@ static int pageSize = 100;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
-        [self launchLogin];
-    }
-    
     // setup pull refresh
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh addTarget:self action:@selector(refreshProducts) forControlEvents:UIControlEventValueChanged];
@@ -53,6 +48,14 @@ static int pageSize = 100;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
+        self.products = nil;
+        [self.tableView reloadData];
+        [self launchLogin];
+        return;
+    }
+    
     if (self.products == nil) {
         if (self.products == nil) {
             self.productApi = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
