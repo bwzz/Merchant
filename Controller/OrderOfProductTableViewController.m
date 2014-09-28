@@ -57,7 +57,6 @@ static int pageSize = 50;
 
 -(void)setProduct:(NSDictionary*) product{
     L(product[@"product_name"]);
-    self.navigationItem.title = product[@"product_name"];
     _product = product;
 }
 

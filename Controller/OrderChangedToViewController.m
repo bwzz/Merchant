@@ -10,7 +10,11 @@
 
 @interface OrderChangedToViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *orderStateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *reasonLabel;
 - (IBAction)back:(id)sender;
+
+@property (strong, nonatomic) NSDictionary *order;
 @end
 
 @implementation OrderChangedToViewController
@@ -28,6 +32,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.backButton.layer.borderWidth = 1;
+    self.backButton.layer.borderColor = [[UIColor blueColor] CGColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,15 +44,39 @@
 
 - (void)setOrder:(NSDictionary*)order {
     Lf(@"order hash id %@",[order valueForKey:@"order_hash_id"]);
+    _order = order;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSDictionary* order = self.order;
     int status = [[order valueForKey:@"handle_status"] intValue];
     if (status>900&&status<1000) {
-        self.orderStateLabel.text = @"unfull payment";
+        self.orderStateLabel.text = @"支付金额与订单价格不符";
+        self.reasonLabel.text = [NSString stringWithFormat:@"订单价格：%@\t实付金额：%@",[self formate:order[@"pay_btc"]], [self formate:order[@"btc_received"]]];
+        self.orderStateLabel.textColor = [UIColor redColor];
     } else if (status>=1000) {
-        self.orderStateLabel.text = @"payment completed";
+        self.orderStateLabel.text = @"支付成功";
+        self.reasonLabel.text = @"";
     } else {
-        self.orderStateLabel.text = @"order unpayed";
+        self.orderStateLabel.text = @"支付未完成";
+        self.reasonLabel.text = @"";
+        self.orderStateLabel.textColor = [UIColor redColor];
     }
 }
+
+- (NSString *)formate:(id)value {
+    if (value == (id)[NSNull null]) {
+        return @"0";
+    }
+    double num = [value doubleValue];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setUsesGroupingSeparator:YES];
+    //[formatter setMinimumFractionDigits:8];
+    [formatter setMaximumFractionDigits:8];
+    return [formatter stringFromNumber:[NSNumber numberWithDouble:num / 100000000.000000000]];
+}
+
 /*
 #pragma mark - Navigation
 

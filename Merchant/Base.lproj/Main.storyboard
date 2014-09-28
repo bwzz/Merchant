@@ -123,12 +123,12 @@
                                         <rect key="frame" x="15" y="28" width="290" height="290"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnE-a8-jmX">
-                                        <rect key="frame" x="15" y="334" width="132" height="21"/>
+                                        <rect key="frame" x="18" y="334" width="163" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQB-y0-GTN">
-                                        <rect key="frame" x="173" y="334" width="132" height="21"/>
+                                        <rect key="frame" x="198" y="334" width="105" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -147,7 +147,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jVR-Aj-rBT">
-                        <barButtonItem key="rightBarButtonItem" title="成交记录" id="6me-jb-mxg">
+                        <barButtonItem key="rightBarButtonItem" title="订单列表" id="6me-jb-mxg">
                             <connections>
                                 <segue destination="b5S-8Y-ouo" kind="push" identifier="orderList" id="73P-td-GWr"/>
                             </connections>
@@ -182,14 +182,15 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="付款成功" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqn-NI-sAv">
-                                <rect key="frame" x="20" y="95" width="68" height="21"/>
+                                <rect key="frame" x="16" y="101" width="288" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s82-zg-G3N">
-                                <rect key="frame" x="31" y="221" width="250" height="30"/>
+                                <rect key="frame" x="16" y="221" width="288" height="38"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="返回">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -197,19 +198,27 @@
                                     <action selector="back:" destination="38D-0r-SZA" eventType="touchDown" id="SWm-0i-eXa"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="金额不足" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePd-I7-Wv3">
+                                <rect key="frame" x="16" y="134" width="288" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="PVj-HB-f9R"/>
                     <connections>
+                        <outlet property="backButton" destination="s82-zg-G3N" id="RZ1-RW-hch"/>
                         <outlet property="orderStateLabel" destination="Kqn-NI-sAv" id="R2m-rQ-DAp"/>
+                        <outlet property="reasonLabel" destination="ePd-I7-Wv3" id="r9x-Ak-JJp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5t-l8-mfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1711" y="747"/>
         </scene>
-        <!--Order Of Product Table View Controller-->
+        <!--订单列表-->
         <scene sceneID="HNh-16-VCd">
             <objects>
                 <tableViewController id="b5S-8Y-ouo" customClass="OrderOfProductTableViewController" sceneMemberID="viewController">
@@ -256,7 +265,7 @@
                             <outlet property="delegate" destination="b5S-8Y-ouo" id="62w-Wi-SKK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="BTO-0Y-qzp"/>
+                    <navigationItem key="navigationItem" title="订单列表" id="BTO-0Y-qzp"/>
                     <connections>
                         <segue destination="hUU-l8-zYP" kind="modal" identifier="Login" id="45d-ON-ukw"/>
                     </connections>

@@ -119,10 +119,19 @@
     }
     self.orderQrImageView.alpha = 1.0f;
     [self.requestOrderProgress stopAnimating];
-    self.btcPriceLabel.text = [NSString stringWithFormat:@"BTC : %@",order[@"pay_btc"]];
-    self.cnyPriceLabel.text = [NSString stringWithFormat:@"CNY : %@",order[@"pay_cny"]];
+    self.btcPriceLabel.text = [NSString stringWithFormat:@"BTC : %@",[self formate:[order[@"pay_btc"] doubleValue] factor:100000000.000000000 fraction:8]];
+    self.cnyPriceLabel.text = [NSString stringWithFormat:@"CNY : %@", [self formate:[order[@"pay_cny"] doubleValue] factor:100.00 fraction:2]];
     self.productDetailLabel.text = order[@"product"][@"product_desc"];
     [self alignLabelWithTop:self.productDetailLabel];
+}
+
+- (NSString *)formate:(double)value factor:(double) factor fraction:(int) fraction {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setUsesGroupingSeparator:YES];
+    //[formatter setMinimumFractionDigits:8];
+    [formatter setMaximumFractionDigits:fraction];
+    return [formatter stringFromNumber:[NSNumber numberWithDouble:value / factor]];
 }
 
 - (void) alignLabelWithTop:(UILabel *)label {
