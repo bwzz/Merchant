@@ -43,15 +43,22 @@ static int pageSize = 100;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if([userDefaults valueForKey:@"rsa_private_key"] == nil || [userDefaults valueForKey:@"token"]==nil) {
         [self launchLogin];
-    } else {
-        self.productApi =[[ProductApi alloc] initWithDefaultHostNameAndController:self];
-        [self refreshProducts];
     }
     
     // setup pull refresh
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh addTarget:self action:@selector(refreshProducts) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.products == nil) {
+        if (self.products == nil) {
+            self.productApi = [[ProductApi alloc] initWithDefaultHostNameAndController:self];
+        }
+        [self refreshProducts];
+    }
 }
 
 - (void)refreshProducts {

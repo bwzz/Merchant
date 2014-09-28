@@ -122,8 +122,32 @@
     self.btcPriceLabel.text = [NSString stringWithFormat:@"BTC : %@",order[@"pay_btc"]];
     self.cnyPriceLabel.text = [NSString stringWithFormat:@"CNY : %@",order[@"pay_cny"]];
     self.productDetailLabel.text = order[@"product"][@"product_desc"];
+    [self alignLabelWithTop:self.productDetailLabel];
 }
 
+- (void) alignLabelWithTop:(UILabel *)label {
+    NSString* text = label.text;
+    if(text == nil) {
+       text = @"";
+    }
+    CGSize maxSize = CGSizeMake(label.frame.size.width, 999);
+    label.adjustsFontSizeToFitWidth = NO;
+    // get actual height
+    NSAttributedString *attributedText =
+    [[NSAttributedString alloc]
+     initWithString:text
+     attributes:@
+     {
+     NSFontAttributeName: label.font
+     }];
+    CGRect rect1 = [attributedText boundingRectWithSize:maxSize
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                               context:nil];
+    CGSize actualSize = rect1.size;
+    CGRect rect = label.frame;
+    rect.size.height = actualSize.height;
+    label.frame = rect;
+}
  #pragma mark - Navigation
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation

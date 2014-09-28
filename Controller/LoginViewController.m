@@ -33,6 +33,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.usernameLabel becomeFirstResponder];
+    self.loginButton.layer.borderWidth = 1;
+    self.loginButton.layer.borderColor = [[UIColor blueColor] CGColor];
+    
+    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.usernameLabel.leftView = paddingView;
+    self.usernameLabel.leftViewMode = UITextFieldViewModeAlways;
+    self.usernameLabel.layer.borderWidth = 1;
+    self.usernameLabel.layer.borderColor = [[UIColor grayColor] CGColor];
+    
+    UILabel *passwordLabelPaddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.passwordLabel.leftView = passwordLabelPaddingView;
+    self.passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+    self.passwordLabel.layer.borderWidth = 1;
+    self.passwordLabel.layer.borderColor = [[UIColor grayColor] CGColor];
+
 }
 
 - (void)didReceiveMemoryWarning
